@@ -1,0 +1,1 @@
+BASE_URL: "https://api.openweathermap.org/data/2.5/forecast?q=london&appid=d2929e9483efc82c82c32ee7e02d563e&cnt=5"

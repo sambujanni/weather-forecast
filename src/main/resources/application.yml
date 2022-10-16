@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    active: dev
+
+base-url: ${BASE_URL}
