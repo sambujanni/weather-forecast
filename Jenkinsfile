@@ -8,6 +8,7 @@ pipeline{
         stage('Build Maven') {
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '0d327d79-9fba-4981-8fcf-8ae1094d4dcc', url: 'https://github.com/sambujanni/weather-forecast.git']]])
+                sh "mvn -Dmaven.test.failure.ignore=true clean package"
             }
         }
         stage('Build Docker Image') {
