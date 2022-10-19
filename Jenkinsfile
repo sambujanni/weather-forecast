@@ -10,8 +10,7 @@ pipeline {
         }
         steps {
             script {
-                COMMIT_ID = sh(returnStdout: true. script: 'git rev-parse HEAD')
-                WEATHER_FORECAST_IMAGE = "jenkins_${BRANCH_NAME}_${COMMIT_ID}"
+                WEATHER_FORECAST_IMAGE = "jenkins_${BRANCH_NAME}"
             }
         }
 
