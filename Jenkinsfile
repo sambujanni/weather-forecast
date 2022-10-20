@@ -10,27 +10,21 @@ pipeline {
 
         }
         stages {
-            stage('Build Maven') {
-                steps {
-                    // checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/sambujanni/weather-forecast']]])
-                    bat 'mvn clean install'
-                }
-            }
             stage('Build Docker Image') {
-                // when {
-                //     anyOf {
-                //         branch 'development';
-                //         branch 'master'
-                //     }
-                // }
+                when {
+                    anyOf {
+                        branch 'development';
+                        branch 'master'
+                    }
+                }
                 steps {
                     script {
 
                         // echo "commit id:: ${COMMIT_ID}"
-                        WEATHER_FORECAST_IMAGE = "jenkins-${env.BUILD_ID}_${REPO_NAME}_${COMMIT_ID}"
+                        WEATHER_FORECAST_IMAGE = "jenkins_${BRANCH_NAME}_b${env.BUILD_ID}_${COMMIT_ID}"
                         echo "BRANCH NAME: ${env.BRANCH_NAME}"
-
-                        bat "docker build . -t ${WEATHER_FORECAST_IMAGE}"
+                        bat 'mvn clean install'
+                        bat "docker build . -t ${REPO_NAME}:${WEATHER_FORECAST_IMAGE}"
                     }
 
                 }
