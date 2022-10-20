@@ -25,14 +25,14 @@ node {
       sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
     }
 	
-	stage('Publish Tests Results'){
-      parallel(
-        publishJunitTestsResultsToJenkins: {
-          echo "Publish junit Tests Results"
-		  archive 'target/*.jar'
-        },
-       )
-    }
+// 	stage('Publish Tests Results'){
+//       parallel(
+//         publishJunitTestsResultsToJenkins: {
+//           echo "Publish junit Tests Results"
+// 		  archive 'target/*.jar'
+//         },
+//        )
+//     }
 		
     stage('Build Docker Image') {
       // build docker image
