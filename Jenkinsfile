@@ -1,8 +1,8 @@
 pipeline {
     agent any
-        tools {
-            maven 'MAVEN_HOME'
-        }
+//         tools {
+//             maven 'MAVEN_HOME'
+//         }
         environment {
             REPO_NAME = "weather-forecast"
             COMMIT_ID = bat(script: "git rev-parse HEAD", returnStdout: true).trim().readLines().drop(1).join(" ")
@@ -13,8 +13,8 @@ pipeline {
             stage('Build Docker Image') {
                 when {
                     anyOf {
-                        branch 'development';
-                        branch 'master'
+                        branch 'development*';
+                        branch 'master*'
                     }
                 }
                 steps {
