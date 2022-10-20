@@ -40,8 +40,8 @@ node {
 		
     stage('Build Docker Image') {
       // build docker image
-      sh "whoami"
-      sh "ls -all /var/run/docker.sock"
+//       sh "whoami"
+//       sh "ls -all /var/run/docker.sock"
       sh "mv ./target/weather-forecast-0.0.1-SNAPSHOT*.jar ./data"
       
       dockerImage = docker.build("weather-forecast")
