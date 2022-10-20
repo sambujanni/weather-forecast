@@ -18,7 +18,10 @@ node {
       // ** NOTE: This 'maven-3.6.1' Maven tool must be configured
       // **       in the global configuration.           
       mvnHome = tool 'MAVEN_HOME'
-    }    
+    }
+    agent any {
+        label 'docker'
+    }
   
 //     stage('Build Project') {
 //       // build project via maven
