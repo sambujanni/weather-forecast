@@ -1,4 +1,5 @@
-node {
+pipeline {
+ agent any
     // reference to maven
     // ** NOTE: This 'maven-3.6.1' Maven tool must be configured in the Jenkins Global Configuration.   
     def mvnHome = tool 'MAVEN_HOME'
@@ -19,9 +20,7 @@ node {
       // **       in the global configuration.           
       mvnHome = tool 'MAVEN_HOME'
     }
-    agent any {
-        label 'docker'
-    }
+
   
 //     stage('Build Project') {
 //       // build project via maven
