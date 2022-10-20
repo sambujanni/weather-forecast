@@ -7,7 +7,7 @@ node {
     def dockerImage
     // ip address of the docker private repository(nexus)
     
-    def dockerRepoUrl = "localhost:8083"
+    def dockerRepoUrl = "https://hub.docker.com/repository/docker/sivajanni/weather-forecast"
     def dockerImageName = "weather-forecast"
     def dockerImageTag = "${dockerRepoUrl}/${dockerImageName}:${env.BUILD_NUMBER}"
     
@@ -29,12 +29,9 @@ node {
       parallel(
         publishJunitTestsResultsToJenkins: {
           echo "Publish junit Tests Results"
-		  junit '**/target/surefire-reports/TEST-*.xml'
 		  archive 'target/*.jar'
         },
-        publishJunitTestsResultsToSonar: {
-          echo "This is branch b"
-      })
+       )
     }
 		
     stage('Build Docker Image') {
