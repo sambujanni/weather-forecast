@@ -20,10 +20,10 @@ node {
       mvnHome = tool 'MAVEN_HOME'
     }    
   
-    stage('Build Project') {
-      // build project via maven
-      sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
-    }
+//     stage('Build Project') {
+//       // build project via maven
+//       sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
+//     }
 	
 // 	stage('Publish Tests Results'){
 //       parallel(
