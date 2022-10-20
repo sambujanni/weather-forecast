@@ -1,33 +1,39 @@
 pipeline {
     agent any
-    tools{
-        maven 'MAVEN_HOME'
-    }
-    stages{
-        stage('Build Maven'){
-            steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/sambujanni/weather-forecast']]])
-                sh 'mvn clean install'
-            }
+        tools {
+            maven 'MAVEN_HOME'
         }
-        stage('Build docker image'){
-            steps{
-                script{
-                    sh 'docker build -t /weather-forecast .'
+        environment {
+            REPO_NAME = "weather-forecast"
+            COMMIT_ID = bat(script: "git rev-parse HEAD", returnStdout: true).trim().readLines().drop(1).join(" ")
+
+
+        }
+        stages {
+            stage('Build Maven') {
+                steps {
+                    // checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/sambujanni/weather-forecast']]])
+                    bat 'mvn clean install'
+                }
+            }
+            stage('Build Docker Image') {
+                // when {
+                //     anyOf {
+                //         branch 'development';
+                //         branch 'master'
+                //     }
+                // }
+                steps {
+                    script {
+
+                        // echo "commit id:: ${COMMIT_ID}"
+                        WEATHER_FORECAST_IMAGE = "jenkins-${env.BUILD_ID}_${REPO_NAME}_${COMMIT_ID}"
+                        echo "BRANCH NAME: ${env.BRANCH_NAME}"
+
+                        bat "docker build . -t ${WEATHER_FORECAST_IMAGE}"
+                    }
+
                 }
             }
         }
-        stage('Push image to Hub'){
-            steps{
-                script{
-                   withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'July@1990')]) {
-                   sh 'docker login -u sivajanni -p ${dockerhubpwd}'
-
-}
-                   sh 'docker push /weather-forecast'
-                }
-            }
-        }
-
-    }
 }
