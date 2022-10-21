@@ -28,11 +28,9 @@ pipeline {
             stage('Push to DockerHub') {
                 steps {
                     script {
-                        withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'July@1990')]) {
-                        bat "docker login -u sivajanni -p ${dockerhubpwd}"
+                        bat "docker login -u sivajanni -p July@1990"
                         bat "docker push sivajanni/weather-forecast:${WEATHER_FORECAST_IMAGE}"
-                    }
-				}
+				    }
                 }
             }
             stage('Deploy') {
