@@ -32,6 +32,7 @@ pipeline {
                         bat "docker login -u sivajanni -p ${dockerhubpwd}"
                         bat "docker push sivajanni/weather-forecast:${WEATHER_FORECAST_IMAGE}"
                     }
+				}
                 }
             }
             stage('Deploy') {
