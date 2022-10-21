@@ -36,6 +36,7 @@ pipeline {
             stage('Deploy') {
                 steps {
                     script {
+                        bat "docker rm -f $(docker ps -a -q)"
                         bat "docker run -d --name weather-forecast -p 8080:8080 ${REPO_NAME}:${WEATHER_FORECAST_IMAGE}"
                     }
                 }
