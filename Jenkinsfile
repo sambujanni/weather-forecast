@@ -41,14 +41,4 @@ pipeline {
                 }
             }
         }
-        post {
-            failure {
-                script {
-                    mail(to: 'siva.janni11@gmail.com',
-                    subject: "job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failed.",
-                    body: "please visit ${env.BUILD_URL} for further information."
-                    );
-                }
-            }
-        }
     }
