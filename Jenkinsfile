@@ -4,7 +4,7 @@ pipeline {
             maven 'MAVEN_HOME'
         }
         environment {
-            REPO_NAME = "weather-forecast"
+            REPO_NAME = "sivajanni/weather-forecast"
             COMMIT_ID = bat(script: "git rev-parse HEAD", returnStdout: true).trim().readLines().drop(1).join(" ")
         }
         stages {
