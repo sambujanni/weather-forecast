@@ -33,12 +33,5 @@ pipeline {
 				    }
                 }
             }
-            stage('Deploy') {
-                steps {
-                    script {
-                        bat "docker run -d --name weather-forecast-b${env.BUILD_ID} -p 8080:8080 ${REPO_NAME}:${WEATHER_FORECAST_IMAGE}"
-                    }
-                }
-            }
         }
     }
