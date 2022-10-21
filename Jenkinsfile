@@ -20,8 +20,25 @@ pipeline {
                         WEATHER_FORECAST_IMAGE = "jenkins_${BRANCH_NAME}_b${env.BUILD_ID}_${COMMIT_ID}"
                         bat 'mvn clean install'
                         bat "docker build . -t ${REPO_NAME}:${WEATHER_FORECAST_IMAGE}"
+
                     }
 
+                }
+            }
+            stage('Push to DockerHub') {
+                steps {
+                    script {
+                        withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'July@1990')]) {
+                        bat "docker login -u sivajanni -p ${dockerhubpwd}"
+                        bat "docker push sivajanni/weather-forecast:${WEATHER_FORECAST_IMAGE}"
+                    }
+                }
+            }
+            stage('Deploy') {
+                steps {
+                    script {
+                        bat "docker run -d --name ${REPO_NAME} -p 8080:8080 ${REPO_NAME}:${WEATHER_FORECAST_IMAGE}"
+                    }
                 }
             }
         }
