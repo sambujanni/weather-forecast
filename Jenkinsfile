@@ -9,12 +9,12 @@ pipeline {
         }
         stages {
             stage('Build Docker Image') {
-//                 when {
-//                     anyOf {
-//                         branch 'development*';
-//                         branch 'master*';
-//                     }
-//                 }
+                when {
+                    anyOf {
+                        branch 'development*';
+                        branch 'master*';
+                    }
+                }
                 steps {
                     script {
                         WEATHER_FORECAST_IMAGE = "jenkins_${BRANCH_NAME}_b${env.BUILD_ID}_${COMMIT_ID}"
